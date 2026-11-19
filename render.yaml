@@ -1,0 +1,18 @@
+# Déploiement automatique sur Render (Blueprint)
+services:
+  - type: web
+    name: ma-boutique
+    runtime: node
+    plan: starter            # payant : nécessaire pour avoir un disque persistant
+    buildCommand: echo "rien a installer"
+    startCommand: node server.js
+    healthCheckPath: /api/shop
+    envVars:
+      - key: ADMIN_PASSWORD
+        sync: false          # Render vous demandera de saisir votre mot de passe admin
+      - key: DATA_DIR
+        value: /var/data
+    disk:
+      name: boutique-data
+      mountPath: /var/data
+      sizeGB: 1
