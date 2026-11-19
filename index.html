@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ma Boutique</title><meta name="description" content="Boutique en ligne : commandez facilement, livraison rapide.">
+<link rel="icon" id="fav" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
+<link rel="stylesheet" href="/style.css"></head><body>
+<header class="top"><div class="wrap"><a class="logo" href="#accueil" id="logo">Ma Boutique</a>
+<nav class="menu" id="menu"><a href="#accueil">Accueil</a><a href="#produits">Produits</a><a href="#services">Services</a><a href="#apropos">À propos</a><a href="#contact">Contact</a></nav>
+<div style="display:flex;gap:8px;align-items:center"><button class="cartbtn" id="cartbtn">🛒 Panier (<span id="cc">0</span>)</button><button class="burger" id="burger" aria-label="Menu">☰</button></div></div></header>
+
+<section id="accueil"><div class="banner"><div class="wrap"><span class="kick">Nouveautés</span><h1 id="bt">Ma Boutique</h1><p id="bs"></p><div class="bb"><a class="btn" href="#produits">Voir les produits</a> <a class="btn ghost" id="bwa" target="_blank" rel="noopener">💬 WhatsApp</a></div></div></div>
+<div class="car" id="car"><div class="vp" id="vp"><div class="tr" id="tr"></div></div></div><div class="marq"><div class="track" id="track"></div></div></section>
+
+<section class="sec" id="produits"><div class="wrap"><h2>Nos produits</h2><p class="sub">Choisissez, ajoutez au panier et commandez par WhatsApp.</p>
+<div class="tools"><input id="q" type="search" placeholder="🔍 Rechercher un produit…"><select id="cat"><option value="">Toutes les catégories</option></select></div>
+<div class="grid" id="grid"></div></div></section>
+
+<section class="sec" id="services" style="background:#f3ebdb"><div class="wrap"><h2>Nos services</h2><p class="sub">Tout est pensé pour vous faciliter l’achat.</p>
+<div class="srv" id="srv"></div></div></section>
+
+<section class="sec" id="apropos"><div class="wrap two"><div class="box"><h2 style="margin-top:0">À propos</h2><p id="about"></p><p><b id="tag"></b></p></div>
+<div class="box dark"><h3>📝 Inscription</h3><p>Recevez nos nouveautés et promotions.</p><form id="sub"><div class="fld"><input name="name" placeholder="Votre nom" required></div><div class="fld"><input name="phone" placeholder="Votre téléphone" required></div><div class="fld"><input name="email" type="email" placeholder="Email (facultatif)"></div><button class="btn" style="background:var(--gold);color:#2b1d05">S’inscrire</button><div class="msg" id="submsg"></div></form></div></div></section>
+
+<section class="sec" id="contact" style="background:#f3ebdb"><div class="wrap"><h2>Contact</h2><p class="sub">Une question ? Écrivez-nous ou appelez-nous.</p>
+<div class="two"><div class="box"><div class="profile"><div class="av" id="av">M</div><div><h3 style="margin:0" id="own">Mousty</h3><div style="color:var(--mut)">Responsable de la boutique</div><div style="color:var(--mut)" id="city"></div></div></div>
+<ul class="clist" id="clist"></ul><a class="btn" id="cwa" target="_blank" rel="noopener" style="background:#25d366">💬 Écrire sur WhatsApp</a></div>
+<div class="box"><h3>Envoyer un message</h3><form id="cf"><div class="fld"><input name="name" placeholder="Votre nom" required></div><div class="fld"><input name="contact" placeholder="Téléphone ou email"></div><div class="fld"><textarea name="message" rows="4" placeholder="Votre message" required></textarea></div><button class="btn">Envoyer</button><div class="msg" id="cfmsg"></div></form></div></div></div></section>
+
+<footer class="foot">© <span id="yr"></span> <span id="fn">Ma Boutique</span> — Tous droits réservés · <a href="/admin" style="color:#d9d2c5">Admin</a></footer>
+<a class="wa" id="fwa" target="_blank" rel="noopener">💬 WhatsApp</a>
+
+<div class="ov" id="ov"></div>
+<aside class="drawer" id="drawer"><header><b style="font-size:1.2rem">🛒 Votre panier</b><button class="btn ghost sm" id="cx">Fermer</button></header><div class="body" id="cbody"></div>
+<footer id="cfoot"><div class="tot"><span>Total</span><span id="ctot">0</span></div>
+<form id="co"><div class="fld"><input name="name" placeholder="Votre nom *" required></div><div class="fld"><input name="phone" placeholder="Votre téléphone *" required></div><div class="fld"><input name="address" placeholder="Adresse / quartier de livraison"></div><div class="fld"><input name="note" placeholder="Remarque (facultatif)"></div>
+<button class="btn" style="width:100%;background:#25d366">✅ Commander sur WhatsApp</button><div class="msg err" id="comsg"></div></form></footer></aside>
+<div class="modal" id="modal"></div>
+<script src="/app.js"></script></body></html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Administration</title><link rel="stylesheet" href="/style.css">
+<style>.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0}.tabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;font-weight:700;cursor:pointer}.tabs button.on{background:var(--green);color:#fff;border-color:var(--green)}
+.pane{display:none}.pane.on{display:block}table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.92rem}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:#f3ebdb}
+.tbl{overflow-x:auto}.thumbs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.thumbs div{position:relative}.thumbs img{width:78px;height:78px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}.thumbs b{position:absolute;top:-6px;right:-6px;background:#b3261e;color:#fff;border-radius:50%;width:22px;height:22px;text-align:center;cursor:pointer;font-size:.8rem;line-height:22px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px}.stats .box{padding:16px}.stats b{font-size:1.6rem;display:block}
+#login{max-width:380px;margin:12vh auto}</style></head><body>
+<div id="login" class="box"><h2 style="margin-top:0">🔐 Administration</h2><p style="color:var(--mut)">Entrez le mot de passe administrateur.</p><form id="lf"><div class="fld"><input type="password" name="password" placeholder="Mot de passe" required autofocus></div><button class="btn" style="width:100%">Connexion</button><div class="msg err" id="lm"></div></form><p><a href="/">← Retour au site</a></p></div>
+<div id="app" style="display:none"><header class="top"><div class="wrap"><span class="logo">⚙️ Administration</span><div><a class="btn sm ghost" style="color:#fff;border-color:#fff6" href="/" target="_blank">Voir le site</a> <button class="btn sm" id="lo">Déconnexion</button></div></div></header>
+<div class="wrap"><div class="tabs" id="tabs"><button data-t="dash" class="on">📊 Tableau de bord</button><button data-t="prod">📦 Produits</button><button data-t="ord">🧾 Commandes</button><button data-t="sub">📝 Inscriptions</button><button data-t="msg">✉️ Messages</button><button data-t="set">⚙️ Réglages</button></div>
+
+<div class="pane on" id="dash"><div class="stats" id="stats"></div><div class="box"><h3 style="margin-top:0">Dernières commandes</h3><div class="tbl" id="lastord"></div></div></div>
+
+<div class="pane" id="prod"><div class="box"><h3 style="margin-top:0" id="pft">Ajouter un produit</h3><form id="pf"><input type="hidden" name="id">
+<div class="row2"><div class="fld"><label>Nom *</label><input name="name" required></div><div class="fld"><label>Prix (FCFA) *</label><input name="price" type="number" min="1" required></div></div>
+<div class="row2"><div class="fld"><label>Catégorie</label><input name="category" placeholder="Ex. Mode" list="cl"><datalist id="cl"></datalist></div><div class="fld"><label>Stock</label><input name="stock" type="number" min="0" value="10"></div></div>
+<div class="row2"><div class="fld"><label>Emoji (si pas de photo)</label><input name="emoji" maxlength="4" placeholder="📦"></div><div class="fld"><label>Visibilité</label><select name="hidden"><option value="">Visible</option><option value="1">Masqué</option></select></div></div>
+<div class="fld"><label>Description</label><textarea name="desc" rows="2"></textarea></div>
+<div class="fld"><label>📷 Photos (jusqu’à 8, elles défileront sur le site)</label><input type="file" id="files" accept="image/*" multiple><div class="thumbs" id="th"></div><div class="msg" id="up"></div></div>
+<button class="btn" id="psave">Enregistrer</button> <button type="button" class="btn ghost" id="pcancel" style="display:none">Annuler la modification</button><div class="msg err" id="pm"></div></form></div>
+<h3>Catalogue</h3><div class="tbl" id="plist"></div></div>
+
+<div class="pane" id="ord"><div class="tbl" id="olist"></div></div>
+<div class="pane" id="sub"><div class="tbl" id="slist"></div></div>
+<div class="pane" id="msg"><div class="tbl" id="mlist"></div></div>
+<div class="pane" id="set"><div class="box"><form id="sf"><input type="hidden" name="logo">
+<div class="fld"><label>🖼️ Logo de la boutique</label><div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><div id="lgp" style="width:90px;height:90px;border:1px dashed var(--line);border-radius:12px;display:grid;place-items:center;background:#fff;overflow:hidden;color:var(--mut);font-size:.8rem;text-align:center">Aucun logo</div>
+<div><input type="file" id="lgf" accept="image/*"><button type="button" class="btn sm red" id="lgx" style="margin-top:8px">Supprimer le logo</button><div class="msg" id="lgm"></div></div></div></div>
+<div class="row2"><div class="fld"><label>Nom de la boutique</label><input name="shopName"></div><div class="fld"><label>Responsable</label><input name="ownerName"></div></div>
+<div class="row2"><div class="fld"><label>Numéro WhatsApp (avec indicatif, ex. 22798537713)</label><input name="whatsapp"></div><div class="fld"><label>Email</label><input name="email" type="email"></div></div>
+<div class="row2"><div class="fld"><label>Téléphones (séparés par une virgule)</label><input name="phones"></div><div class="fld"><label>Ville / pays</label><input name="city"></div></div>
+<div class="fld"><label>Slogan</label><input name="tagline"></div><div class="fld"><label>Texte « À propos »</label><textarea name="about" rows="4"></textarea></div>
+<button class="btn">Enregistrer les réglages</button><div class="msg" id="sm"></div></form></div>
+<div class="box" style="margin-top:16px"><h3 style="margin-top:0">🎨 Couleurs du site</h3>
+<div class="row2"><div class="fld"><label>Couleur principale (en-tête, sections)</label><input type="color" id="cm" style="height:46px;padding:4px"></div><div class="fld"><label>Couleur des boutons et prix</label><input type="color" id="ca" style="height:46px;padding:4px"></div></div>
+<div class="fld"><label>Palettes rapides</label><div id="pal" style="display:flex;gap:8px;flex-wrap:wrap"></div></div>
+<button class="btn" id="csave">Enregistrer les couleurs</button><div class="msg" id="cmsg"></div></div>
+<div class="box" style="margin-top:16px"><h3 style="margin-top:0">💾 Sauvegarde</h3><p style="color:var(--mut);margin-top:0">Téléchargez une copie de vos produits, photos, commandes et réglages. Utile avant de changer d'hébergeur, et indispensable sur un hébergement gratuit qui efface les fichiers.</p>
+<a class="btn" href="/api/admin/backup">⬇️ Télécharger la sauvegarde</a>
+<div class="fld" style="margin-top:14px"><label>Restaurer depuis un fichier de sauvegarde (remplace les données actuelles)</label><input type="file" id="rsf" accept=".json,application/json"></div><div class="msg" id="rsm"></div></div>
+<div class="box" style="margin-top:16px"><h3 style="margin-top:0">⭐ Cartes « Services »</h3><div id="svl"></div>
+<button type="button" class="btn ghost sm" id="svadd">+ Ajouter un service</button> <button class="btn" id="svsave">Enregistrer les services</button><div class="msg" id="svmsg"></div></div>
+</div>
+</div></div><script src="/admin.js"></script></body></html>
