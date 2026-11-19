@@ -3,7 +3,8 @@ const http = require('http'), fs = require('fs'), path = require('path'), crypto
 const PORT = process.env.PORT || 3000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin1234';
 const BASE = process.env.DATA_DIR || __dirname; // en ligne : dossier du disque persistant (ex. /var/data)
-const DATA = path.join(BASE, 'data'), UP = path.join(BASE, 'uploads'), PUB = path.join(__dirname, 'public');
+const DATA = path.join(BASE, 'data'), UP = path.join(BASE, 'uploads'), PUB = fs.existsSync(path.join(__dirname, 'public')) ? path.join(__dirname, 'public') : __dirname; // secours : pages du site à la racine
+const FLAT = PUB === __dirname, SITE_FILES = /^\/(index\.html|admin\.html|app\.js|admin\.js|style\.css)$/;
 [DATA, UP].forEach(d => fs.mkdirSync(d, { recursive: true }));
 const DBF = path.join(DATA, 'db.json');
 
@@ -149,6 +150,7 @@ function applyProduct(pr, b) {
 }
 function serveStatic(req, res, url) {
   let p = decodeURIComponent(url.pathname); if (p === '/') p = '/index.html'; if (p === '/admin') p = '/admin.html';
+  if (FLAT && !p.startsWith('/uploads/') && !SITE_FILES.test(p)) { res.writeHead(404); return res.end('Page introuvable'); } // en mode secours, seules les pages du site sont publiques
   const root = p.startsWith('/uploads/') ? UP : PUB, rel = p.startsWith('/uploads/') ? p.slice(9) : p;
   const f = path.normalize(path.join(root, rel));
   if (!f.startsWith(root) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { res.writeHead(404); return res.end('Page introuvable'); }
